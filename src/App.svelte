@@ -3,68 +3,42 @@
   import Songs from "./comp/songs.svelte";
   let selected = undefined;
   let playlist = [];
-  function Tools() {
-    function setUser(user) {
-      // user = username do usuario
-      
-      let i = localStorage.setItem('token');
-      let j = localStorage.setItem('username', user)
-      return i
-    } 
-    function getItem (id) {
-      let i = localStorage.getItem(id);
-      return i
+  class User {
+    constructor () {
+      this.user = localStorage.getItem('user') || undefined;
     }
-    return {
-      getItem,
-      setUser,
-    };
+    isLogged() {
+      if (this.user) return true || false;
+    }
+    get name() {
+      return this.user;
+    }
+    login(username) {
+      localStorage.setItem("user", username)
+    }
+    logout() {
+      localStorage.removeItem("user")
+    }
   }
-  var tools = new Tools();
-  function User() {
-    let infos = [];
-    function isLogged() {
-      k = tools.getItem('user')
-      if (k != null) { return true; } else { return false; }
-    }
-    function name() {
-      let i = tools.getCookie("user-name");
-      infos["name"] = i;
-      return i;
-    }
-    function login(username) {
-      tools.setUser(username)
-    }
 
-    /* chamando as funções de forma estatica */
-    isLogged();
-    name();
-
-    return infos;
-  }
   let user = new User();
 </script>
 
 <body>
 <header>
-  {#if user.login}
+  {#if user.isLogged()} 
     <h2>Olá {user.name}</h2>
+    <button on:click={user.logout()}>logout</button>
   {:else}
-    <h2>Olá, Usuario, Por favor registre-se :)</h2>
+    <h2>Olá, Usuario, Por favor registre-se :D</h2>
+    <button on:click={user.login("HELLO")}> registrar</button>
   {/if}
 </header>
-<Songs {selected} />
+
 <footer>
-  <Player />
 </footer>
   
 </body>
 <style>
-  footer {
-    padding: 0%;
-    bottom: 1;
-    top: -1;
-    left: 0;
-    right: 0;
-  }
+  
 </style>

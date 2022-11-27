@@ -5,5 +5,6 @@
     "superBG.activeImage": 0,
     "superBG.url": "",
     "superBG.opacity": 28,
-    "superBG.disable": false
+    "superBG.disable": false,
+    "deepscan.enable": true
 }

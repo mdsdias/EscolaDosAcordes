@@ -1,9 +1,7 @@
 <script>
   export let music;
   export let artist;
-  var tag = document.createElement("script");
-
-  tag.src = "https://www.youtube.com/iframe_api";
+  var tag = document.getElementById('targ')
   var firstScriptTag = document.getElementsByTagName("script")[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   var player;
@@ -23,6 +21,9 @@
     event.target.playVideo();
   }
 </script>
+<svelte:head>
+<script src="https://www.youtube.com/iframe_api" id="targ"></script>  
+</svelte:head>
 
 <div align="left" class="infos-container">
   <div align="left" class="infos">
